@@ -1,0 +1,68 @@
+# 2020_6-16_CodePractice
+
+//标题：统计同成绩学生人数
+//     读入N名学生的成绩，将获得某一给定分数的学生人数输出。
+//  【输入描述】：测试输入包含若干测试用例，每个测试用例的格式为
+//                     第1行：N
+//                     第2行：N名学生的成绩，相邻两数字用一个空格间隔。
+//                     第3行：给定分数
+//                当读到N=0时输入结束。其中N不超过1000，成绩分数为（包
+//                含）0到100之间的一个整数。
+//  【输出描述】：对每个测试用例，将获得给定分数的学生人数输出。
+//  【示例1】: 输入             输出
+//              3                1
+//           80 60 90
+//             60
+//【解题思路】
+//输入和计算过程：
+//输入人数
+//循环变量，输入分数
+//输入目标分数
+//循环变量分数数组，计算和目标分数相等的分数出现的频次
+//打印输出目标分数出现的频次
+
+//方法一：时间复杂度O(n)
+import java.util.Scanner;
+
+public class day16_02 {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        while (sc.hasNext()) {
+            int N = sc.nextInt();//学生人数
+            if (N == 0) {// 如果检测到输入的人数为0 则结束
+                return;
+            }
+            int[] scores = new int[N];// 保存N个人的分数
+            for (int i = 0; i < N; i++) {
+                scores[i] = sc.nextInt();
+            }
+            int score = sc.nextInt();// 目标分数 输出击中目标分数的个数
+            int count = 0;
+            for (int j = 0; j < N; j++) {
+                if (score == scores[j]) {
+                    count++;
+                }
+            }
+            System.out.println(count);
+        }
+    }
+}
+
+//方法二：利用Map解决
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class day16_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            int n = scanner.nextInt();
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < n; i++) {
+                map.merge(scanner.nextInt(),1,Integer::sum);
+            }
+            System.out.println(map.getOrDefault(scanner.nextInt(),0));
+        }
+    }
+}
+
